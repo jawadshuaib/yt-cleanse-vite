@@ -1,0 +1,6 @@
+{
+  "name": "YT Cleanse",
+  "description": "An application to analyze your YouTube subscriptions and watch history, providing intelligent recommendations for decluttering your feed and enabling bulk unsubscribe actions.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import App from './App';
 import './index.css';
+import { GOOGLE_CLIENT_ID } from '../constants';
 
-// Ensure the root element exists and is of the correct type
-const rootElement = document.getElementById('root') as HTMLElement;
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+  throw new Error('Could not find root element to mount to');
+}
 
-ReactDOM.createRoot(rootElement).render(
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
   <React.StrictMode>
-    <App />
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <App />
+    </GoogleOAuthProvider>
   </React.StrictMode>,
 );

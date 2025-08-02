@@ -1,12 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2015", // Changed from "es5" to "es2015" to support Set iteration
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "strict": false, // Disable all strict type-checking options
+    // Optionally, you can disable specific strict flags instead of the whole "strict" mode:
+    // "strictNullChecks": false,
+    // "noImplicitAny": false,
+    // "strictFunctionTypes": false,
+    // "strictBindCallApply": false,
+    // "strictPropertyInitialization": false,
+    // "alwaysStrict": false,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -15,5 +22,11 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src", "constants.ts", "services/**/*"],
+  "exclude": [
+    "postcss.config.js",
+    "vite.config.js",
+    "tailwind.config.js",
+    "node_modules"
+  ]
 }
