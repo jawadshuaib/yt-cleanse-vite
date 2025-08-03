@@ -17,8 +17,28 @@ export const handler: Handler = async (event) => {
 
   const ai = new GoogleGenAI({ apiKey });
 
-  const channelInfo = channels.map((c: any) => ({ id: c.id, title: c.title }));
-  const watchedVideoTitles = watchHistory.map((v: any) => v.snippet.title);
+  console.log(
+    'LENGTHS for channels and watch history: ',
+    channels.length,
+    watchHistory.length,
+  );
+  // console.log(channels.slice(0, 2), watchHistory.slice(0, 2));
+
+  // Validate input
+  // Reduce the list to prevent timeouts
+  const limitedChannels = channels.slice(0, 100);
+  const limitedWatchHistory = watchHistory.slice(0, 100);
+
+  const channelInfo = limitedChannels.map((c: any) => ({
+    id: c.id,
+    title: c.title,
+  }));
+  const watchedVideoTitles = limitedWatchHistory.map(
+    (v: any) => v.snippet.title,
+  );
+
+  // const channelInfo = channels.map((c: any) => ({ id: c.id, title: c.title }));
+  // const watchedVideoTitles = watchHistory.map((v: any) => v.snippet.title);
 
   const prompt = `
     You are a recommendation engine for YouTube subscriptions. Analyze the user's data to help them declutter.

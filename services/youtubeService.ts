@@ -105,19 +105,14 @@ export const fetchWatchHistory = async (
   }
 
   const historyPlaylistId = (data.items[0] as any).contentDetails
-    .relatedPlaylists.watchHistory;
+    ?.relatedPlaylists?.watchHistory;
+
   if (!historyPlaylistId) {
-    // A new "Watch History" playlist ID "HL" is used for newer accounts. Fallback to this.
-    const historyPlaylistIdFallback = 'HL';
+    // No way to fetch watch history via API for this account.
     console.warn(
-      "Watch history playlist not found in channel details, falling back to 'HL'",
+      'Watch history playlist not available for this account. Unable to fetch watch history.',
     );
-    return fetchPlaylistItems(
-      token,
-      historyPlaylistIdFallback,
-      threeMonthsAgo,
-      onProgress,
-    );
+    return [];
   }
 
   return fetchPlaylistItems(
