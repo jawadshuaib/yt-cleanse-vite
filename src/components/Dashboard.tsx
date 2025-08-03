@@ -5,7 +5,7 @@ import {
   fetchWatchHistory,
   unsubscribe,
 } from '../../services/youtubeService';
-import { analyzeSubscriptionsWithGemini } from '../../services/old.geminiService';
+import { analyzeSubscriptionsWithGemini } from '../../services/geminiService';
 import type {
   Subscription,
   PlaylistItem,

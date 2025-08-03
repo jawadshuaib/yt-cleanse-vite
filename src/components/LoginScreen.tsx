@@ -35,8 +35,7 @@ const LoginScreen: React.FC = () => {
           <h2 className="text-2xl font-bold text-white mb-6">Get Started</h2>
           <p className="text-gray-400 mb-6">
             Sign in with your Google account to securely fetch your YouTube
-            data. Your information is processed entirely in your browser. If a
-            Gemini API key is available, we will provide an AI-powered analysis.
+            data. Your information is processed entirely in your browser.
           </p>
           <button
             onClick={handleLogin}

@@ -58,6 +58,7 @@ export const handler: Handler = async (event) => {
       throw new Error('Invalid JSON structure from Gemini API.');
     }
   } catch (error) {
+    console.error('Gemini function error:', error);
     return {
       statusCode: 500,
       body: 'Failed to get analysis from AI.',
