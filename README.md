@@ -4,6 +4,8 @@
 
 YT Cleanse is a web application that analyzes your YouTube subscriptions and watch history to help you tidy up your feed. It identifies channels you no longer watch and allows you to bulk-unsubscribe with ease.
 
+Try it out: https://yt-cleanse.netlify.app/
+
 ![YT Cleanse Dashboard](https://raw.githubusercontent.com/jawadshuaib/yt-cleanse-vite/main/media/screenshot.png)
 
 ---
