@@ -1,11 +1,10 @@
-// import { Handler } from '@netlify/functions';
 import type { Handler } from '@netlify/functions';
 import { GoogleGenAI } from '@google/genai';
 import { GEMINI_MODEL_NAME, GEMINI_ANALYSIS_SCHEMA } from '../../constants';
 
 export const handler: Handler = async (event) => {
   const body = event.body ? JSON.parse(event.body) : {};
-  const { channels, watchHistory } = body;
+  const { channels, userPreference } = body;
 
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
@@ -17,41 +16,26 @@ export const handler: Handler = async (event) => {
 
   const ai = new GoogleGenAI({ apiKey });
 
-  console.log(
-    'LENGTHS for channels and watch history: ',
-    channels.length,
-    watchHistory.length,
-  );
-  // console.log(channels.slice(0, 2), watchHistory.slice(0, 2));
-
-  // Validate input
   // Reduce the list to prevent timeouts
   const limitedChannels = channels.slice(0, 100);
-  const limitedWatchHistory = watchHistory.slice(0, 100);
 
   const channelInfo = limitedChannels.map((c: any) => ({
     id: c.id,
     title: c.title,
   }));
-  const watchedVideoTitles = limitedWatchHistory.map(
-    (v: any) => v.snippet.title,
-  );
-
-  // const channelInfo = channels.map((c: any) => ({ id: c.id, title: c.title }));
-  // const watchedVideoTitles = watchHistory.map((v: any) => v.snippet.title);
 
   const prompt = `
-    You are a recommendation engine for YouTube subscriptions. Analyze the user's data to help them declutter.
-    Here is a list of the user's subscribed channels:
-    ${JSON.stringify(channelInfo, null, 2)}
-    Here is a list of video titles the user has watched recently:
-    ${JSON.stringify(watchedVideoTitles, null, 2)}
-    Based on the watch history, categorize each channel ID from the subscription list into one of three groups:
-    - "keep": Channels that align well with the user's recent viewing habits.
-    - "review": Channels that have some thematic overlap but are not frequently watched.
-    - "unsubscribe": Channels that seem irrelevant to the user's recent interests or are never watched.
-    Return your analysis as a JSON object matching the provided schema. Ensure every channel ID from the original list is placed into one of the three categories.
-  `;
+You are a recommendation engine for YouTube subscriptions. Analyze the user's data to help them declutter.
+Here is a list of the user's subscribed channels:
+${JSON.stringify(channelInfo, null, 2)}
+Here is a description of the type of channels the user wants to keep:
+"${userPreference}"
+Based on this description, categorize each channel ID from the subscription list into one of three groups:
+- "keep": Channels that match the user's preferences.
+- "review": Channels that may be of interest but are not a perfect match.
+- "unsubscribe": Channels that seem irrelevant to the user's stated interests.
+Return your analysis as a JSON object matching the provided schema. Ensure every channel ID from the original list is placed into one of the three categories.
+`;
 
   try {
     const response = await ai.models.generateContent({
@@ -64,11 +48,11 @@ export const handler: Handler = async (event) => {
     });
 
     const text = response.text;
+    console.log('RESULT:', text);
     if (!text) {
       throw new Error('No response text from Gemini API.');
     }
     const result = JSON.parse(text);
-
     if (result.keep && result.review && result.unsubscribe) {
       return {
         statusCode: 200,

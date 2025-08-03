@@ -1,14 +1,14 @@
-import type { Channel, PlaylistItem } from '../types';
+import type { Channel } from '../types';
 
 export const analyzeSubscriptionsWithGemini = async (
   channels: Channel[],
-  watchHistory: PlaylistItem[],
+  userPreference: string,
 ): Promise<{ keep: string[]; review: string[]; unsubscribe: string[] }> => {
   try {
     const response = await fetch('/.netlify/functions/gemini', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ channels, watchHistory }),
+      body: JSON.stringify({ channels, userPreference }),
     });
 
     if (!response.ok) {
