@@ -1,0 +1,11 @@
+[build]
+  functions = "netlify/functions"
+  node_bundler = "esbuild"
+[dev]
+  port = 8888
+[functions]
+  node_bundler = "esbuild"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

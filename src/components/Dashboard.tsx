@@ -5,7 +5,7 @@ import {
   fetchWatchHistory,
   unsubscribe,
 } from '../../services/youtubeService';
-import { analyzeSubscriptionsWithGemini } from '../../services/geminiService';
+import { analyzeSubscriptionsWithGemini } from '../../services/old.geminiService';
 import type {
   Subscription,
   PlaylistItem,
@@ -22,6 +22,9 @@ interface DashboardProps {
   accessToken: string;
   onLogout: () => void;
 }
+
+//const hasApiKey = Boolean(import.meta.env.VITE_GEMINI_API_KEY);
+const hasApiKey = true;
 
 const CategorySection: React.FC<{
   title: string;
@@ -266,7 +269,7 @@ const Dashboard: React.FC<DashboardProps> = ({ accessToken, onLogout }) => {
         unsubscribe: [],
       };
 
-      if (process.env.API_KEY && channelsToAnalyze.length > 0) {
+      if (hasApiKey && channelsToAnalyze.length > 0) {
         setLoadingMessage('Analyzing your preferences with AI...');
         setAnalysisMethod(
           'Categorized by AI based on your recent viewing topics.',

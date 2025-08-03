@@ -1,4 +1,3 @@
-
 export interface Subscription {
   id: string;
   snippet: {
@@ -42,7 +41,7 @@ export interface CategorizedChannels {
 }
 
 export enum AnalysisCategory {
-  KEEP = "keep",
-  REVIEW = "review",
-  UNSUBSCRIBE = "unsubscribe"
+  KEEP = 'keep',
+  REVIEW = 'review',
+  UNSUBSCRIBE = 'unsubscribe',
 }

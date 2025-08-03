@@ -22,7 +22,13 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "constants.ts", "services/**/*"],
+  "include": [
+    "src",
+    "constants.ts",
+    "services/**/*",
+    "vite-env.d.ts",
+    "netlify/functions"
+  ],
   "exclude": [
     "postcss.config.js",
     "vite.config.js",

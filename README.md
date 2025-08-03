@@ -74,8 +74,8 @@ You need to create a Google Cloud project to get the necessary API keys and cred
 
 1.  **Clone the repository**:
     ```bash
-    git clone https://github.com/jawadshuaib/yt-cleanse.git
-    cd yt-cleanse
+    git clone https://github.com/jawadshuaib/yt-cleanse-vite.git
+    cd yt-cleanse-vite
     ```
 2.  **Update Google Client ID**:
     - Open `constants.ts`.
@@ -95,10 +95,9 @@ You need to create a Google Cloud project to get the necessary API keys and cred
 
 ### 4. Running the App
 
-- Start a local web server from the root of the project directory. For example, using Python 3:
-  ```bash
-  npm run dev
-  ```
+```bash
+npm run dev
+```
 
 ## 📄 License
 
